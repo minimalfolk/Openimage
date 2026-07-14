@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krutidev to Mangal Converter - Krutidev 010 to Mangal Unicode</title>
+    <meta name="description" content="Free online Krutidev to Mangal converter. Convert Krutidev 010 font text to Mangal Unicode. Same as Krutidev to Unicode conversion.">
+    <meta property="og:title" content="Krutidev to Mangal Converter - Krutidev 010 to Mangal Unicode">
+    <meta property="og:description" content="Free online Krutidev to Mangal converter. Convert Krutidev 010 font text to Mangal Unicode. Same as Krutidev to Unicode conversion.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://hindifontconverter.com/tools/krutidev-to-mangal.html">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Krutidev to Mangal Converter",
+        "description": "Free online Krutidev to Mangal converter. Convert Krutidev 010 font text to Mangal Unicode. Same as Krutidev to Unicode conversion.",
+        "url": "https://hindifontconverter.com/tools/krutidev-to-mangal.html",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Hindi Font Converter</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#tools">All Tools</a>
+                    <a href="font-identifier.html">Font Identifier</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Krutidev to Mangal Converter</h1>
+            <p>Convert Krutidev 010 text to Mangal (Unicode) font for modern use.</p>
+        </section>
+
+        <div class="converter-box">
+            <div class="textarea-wrap">
+                <label for="input-text">Krutidev Text</label>
+                <textarea id="input-text" placeholder="Paste your Krutidev 010 text here... (e.g., Hkkjr)"></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button id="convert-btn" class="btn btn-primary">Convert</button>
+                <button class="btn btn-secondary" onclick="window.location.href='mangal-to-krutidev.html'">Swap Direction</button>
+                <button id="clear-btn" class="btn btn-secondary">Clear All</button>
+            </div>
+
+            <div class="textarea-wrap">
+                <label for="output-text">Mangal (Unicode) Output</label>
+                <textarea id="output-text" readonly placeholder="Converted Mangal Unicode text will appear here..."></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button id="copy-btn" class="btn btn-success">Copy Result</button>
+            </div>
+            <p class="status-msg" id="status-msg">Ready.</p>
+        </div>
+
+        <section class="content-section">
+            <h2>Krutidev to Mangal Conversion</h2>
+            <p>Mangal is the default Unicode Hindi font in Windows. Converting from Krutidev to Mangal means converting from the legacy Krutidev encoding to standard Unicode, which can be displayed in Mangal or any other Unicode Devanagari font.</p>
+            <h2>How to Use</h2>
+            <ol>
+                <li>Paste your Krutidev 010 encoded text in the input box.</li>
+                <li>Click <strong>Convert</strong> to get Unicode text.</li>
+                <li>The output will display correctly in Mangal or any Unicode font.</li>
+            </ol>
+            <p>After conversion, the text can be used on websites, emails, WhatsApp, social media, and any modern application that supports Unicode.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Hindi Font Converter. Free online Hindi font conversion tools.</p>
+            <p><a href="../index.html">Home</a> | <a href="../index.html#tools">All Tools</a> | <a href="font-identifier.html">Font Identifier</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/converter-engine.js"></script>
+    <script src="../assets/js/unicode-to-krutidev.js"></script>
+    <script src="../assets/js/converter.js"></script>
+    <script>
+    (function() {
+        var inputArea = document.getElementById('input-text');
+        var outputArea = document.getElementById('output-text');
+        var convertBtn = document.getElementById('convert-btn');
+        var clearBtn = document.getElementById('clear-btn');
+        var copyBtn = document.getElementById('copy-btn');
+        var statusMsg = document.getElementById('status-msg');
+        
+        convertBtn.addEventListener('click', function() {
+            var text = inputArea.value;
+            if (!text.trim()) { statusMsg.textContent = 'Please paste some text first.'; return; }
+            statusMsg.textContent = 'Converting...';
+            try {
+                var result = HindiFontConverter.toUnicode(inputArea.value, 'krutidev');
+                outputArea.value = result;
+                statusMsg.textContent = 'Conversion complete! ' + result.length + ' characters.';
+            } catch(e) {
+                statusMsg.textContent = 'Error during conversion. Please check your input.';
+            }
+        });
+
+        clearBtn.addEventListener('click', function() {
+            inputArea.value = '';
+            outputArea.value = '';
+            statusMsg.textContent = 'Cleared.';
+        });
+
+        copyBtn.addEventListener('click', function() {
+            if (!outputArea.value) { statusMsg.textContent = 'Nothing to copy.'; return; }
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(outputArea.value).then(function() {
+                    statusMsg.textContent = 'Copied to clipboard!';
+                });
+            } else {
+                outputArea.select();
+                document.execCommand('copy');
+                statusMsg.textContent = 'Copied to clipboard!';
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

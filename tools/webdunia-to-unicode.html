@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webdunia to Unicode Converter - Webdunia Font to Hindi Unicode</title>
+    <meta name="description" content="Free online Webdunia to Unicode converter. Convert Webdunia legacy Hindi font text to standard Unicode Devanagari.">
+    <meta property="og:title" content="Webdunia to Unicode Converter - Webdunia Font to Hindi Unicode">
+    <meta property="og:description" content="Free online Webdunia to Unicode converter. Convert Webdunia legacy Hindi font text to standard Unicode Devanagari.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://hindifontconverter.com/tools/webdunia-to-unicode.html">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Webdunia to Unicode Converter",
+        "description": "Free online Webdunia to Unicode converter. Convert Webdunia legacy Hindi font text to standard Unicode Devanagari.",
+        "url": "https://hindifontconverter.com/tools/webdunia-to-unicode.html",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Hindi Font Converter</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#tools">All Tools</a>
+                    <a href="font-identifier.html">Font Identifier</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Webdunia to Unicode Converter</h1>
+            <p>Convert Webdunia legacy font text to standard Unicode Hindi.</p>
+        </section>
+
+        <div class="converter-box">
+            <div class="textarea-wrap">
+                <label for="input-text">Webdunia Text (Paste here)</label>
+                <textarea id="input-text" placeholder="Paste your Webdunia font text here..."></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button id="convert-btn" class="btn btn-primary">Convert</button>
+                <button class="btn btn-secondary" onclick="window.location.href='unicode-to-webdunia.html'">Swap Direction</button>
+                <button id="clear-btn" class="btn btn-secondary">Clear All</button>
+            </div>
+
+            <div class="textarea-wrap">
+                <label for="output-text">Unicode Output</label>
+                <textarea id="output-text" readonly placeholder="Converted Unicode text will appear here..."></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button id="copy-btn" class="btn btn-success">Copy Result</button>
+            </div>
+            <p class="status-msg" id="status-msg">Ready.</p>
+        </div>
+
+        <section class="content-section">
+            <h2>How to Convert Webdunia to Unicode</h2>
+            <ol>
+                <li>Paste your Webdunia font encoded text in the input box.</li>
+                <li>Click <strong>Convert</strong> to transform to Unicode.</li>
+                <li>Copy the Unicode output for modern use.</li>
+            </ol>
+            <h2>About Webdunia Font</h2>
+            <p>Webdunia is a legacy Hindi font that was used on the Webdunia.com portal and related Hindi web services in the early 2000s before Unicode adoption became widespread. It uses an encoding similar to Krutidev, making conversion straightforward with our tool.</p>
+            <p>If you have old content from Webdunia-based systems, this converter helps you bring it into standard Unicode format for use on modern websites and applications.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Hindi Font Converter. Free online Hindi font conversion tools.</p>
+            <p><a href="../index.html">Home</a> | <a href="../index.html#tools">All Tools</a> | <a href="font-identifier.html">Font Identifier</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/converter-engine.js"></script>
+    <script src="../assets/js/unicode-to-krutidev.js"></script>
+    <script src="../assets/js/converter.js"></script>
+    <script>
+    (function() {
+        var inputArea = document.getElementById('input-text');
+        var outputArea = document.getElementById('output-text');
+        var convertBtn = document.getElementById('convert-btn');
+        var clearBtn = document.getElementById('clear-btn');
+        var copyBtn = document.getElementById('copy-btn');
+        var statusMsg = document.getElementById('status-msg');
+        
+        convertBtn.addEventListener('click', function() {
+            var text = inputArea.value;
+            if (!text.trim()) { statusMsg.textContent = 'Please paste some text first.'; return; }
+            statusMsg.textContent = 'Converting...';
+            try {
+                var result = HindiFontConverter.toUnicode(inputArea.value, 'webdunia');
+                outputArea.value = result;
+                statusMsg.textContent = 'Conversion complete! ' + result.length + ' characters.';
+            } catch(e) {
+                statusMsg.textContent = 'Error during conversion. Please check your input.';
+            }
+        });
+
+        clearBtn.addEventListener('click', function() {
+            inputArea.value = '';
+            outputArea.value = '';
+            statusMsg.textContent = 'Cleared.';
+        });
+
+        copyBtn.addEventListener('click', function() {
+            if (!outputArea.value) { statusMsg.textContent = 'Nothing to copy.'; return; }
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(outputArea.value).then(function() {
+                    statusMsg.textContent = 'Copied to clipboard!';
+                });
+            } else {
+                outputArea.select();
+                document.execCommand('copy');
+                statusMsg.textContent = 'Copied to clipboard!';
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unicode to Krutidev Converter - Convert Mangal to Krutidev 010</title>
+    <meta name="description" content="Free online Unicode to Krutidev converter. Convert Unicode Mangal Hindi text to Krutidev 010 font encoding. Instant, accurate conversion.">
+    <meta property="og:title" content="Unicode to Krutidev Converter - Convert Mangal to Krutidev 010">
+    <meta property="og:description" content="Free online Unicode to Krutidev converter. Convert Unicode Mangal Hindi text to Krutidev 010 font encoding. Instant, accurate conversion.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://hindifontconverter.com/tools/unicode-to-krutidev.html">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Unicode to Krutidev Converter",
+        "description": "Free online Unicode to Krutidev converter. Convert Unicode Mangal Hindi text to Krutidev 010 font encoding. Instant, accurate conversion.",
+        "url": "https://hindifontconverter.com/tools/unicode-to-krutidev.html",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Hindi Font Converter</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#tools">All Tools</a>
+                    <a href="font-identifier.html">Font Identifier</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Unicode to Krutidev Converter</h1>
+            <p>Convert Unicode (Mangal) Hindi text to Krutidev 010 font encoding.</p>
+        </section>
+
+        <div class="converter-box">
+            <div class="textarea-wrap">
+                <label for="input-text">Unicode Text (Paste here)</label>
+                <textarea id="input-text" placeholder="Paste your Unicode Hindi text here... (e.g., भारत)"></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button id="convert-btn" class="btn btn-primary">Convert</button>
+                <button class="btn btn-secondary" onclick="window.location.href='krutidev-to-unicode.html'">Swap Direction</button>
+                <button id="clear-btn" class="btn btn-secondary">Clear All</button>
+            </div>
+
+            <div class="textarea-wrap">
+                <label for="output-text">Krutidev Output</label>
+                <textarea id="output-text" readonly placeholder="Converted Krutidev text will appear here..."></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button id="copy-btn" class="btn btn-success">Copy Result</button>
+            </div>
+            <p class="status-msg" id="status-msg">Ready.</p>
+        </div>
+
+        <section class="content-section">
+            <h2>How to Convert Unicode to Krutidev</h2>
+            <ol>
+                <li>Paste your Unicode (Mangal) Hindi text in the input box.</li>
+                <li>Click the <strong>Convert</strong> button.</li>
+                <li>The Krutidev encoded text appears in the output box.</li>
+                <li>Copy the result and paste it into your document with Krutidev font applied.</li>
+            </ol>
+            <h2>When Do You Need Unicode to Krutidev?</h2>
+            <p>Many government offices, courts, and publishing houses in India still use Krutidev font in their workflow. If you type in Unicode but need to submit documents in Krutidev format, this tool helps you convert instantly without retyping.</p>
+            <p>Common scenarios include preparing documents for offices that use legacy software, creating content for publications that require Krutidev, and converting web content for use in PageMaker or CorelDRAW with Krutidev fonts.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Hindi Font Converter. Free online Hindi font conversion tools.</p>
+            <p><a href="../index.html">Home</a> | <a href="../index.html#tools">All Tools</a> | <a href="font-identifier.html">Font Identifier</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/converter-engine.js"></script>
+    <script src="../assets/js/unicode-to-krutidev.js"></script>
+    <script src="../assets/js/converter.js"></script>
+    <script>
+    (function() {
+        var inputArea = document.getElementById('input-text');
+        var outputArea = document.getElementById('output-text');
+        var convertBtn = document.getElementById('convert-btn');
+        var clearBtn = document.getElementById('clear-btn');
+        var copyBtn = document.getElementById('copy-btn');
+        var statusMsg = document.getElementById('status-msg');
+        
+        convertBtn.addEventListener('click', function() {
+            var text = inputArea.value;
+            if (!text.trim()) { statusMsg.textContent = 'Please paste some text first.'; return; }
+            statusMsg.textContent = 'Converting...';
+            try {
+                var result = HindiFontConverter.fromUnicode(inputArea.value, 'krutidev');
+                outputArea.value = result;
+                statusMsg.textContent = 'Conversion complete! ' + result.length + ' characters.';
+            } catch(e) {
+                statusMsg.textContent = 'Error during conversion. Please check your input.';
+            }
+        });
+
+        clearBtn.addEventListener('click', function() {
+            inputArea.value = '';
+            outputArea.value = '';
+            statusMsg.textContent = 'Cleared.';
+        });
+
+        copyBtn.addEventListener('click', function() {
+            if (!outputArea.value) { statusMsg.textContent = 'Nothing to copy.'; return; }
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(outputArea.value).then(function() {
+                    statusMsg.textContent = 'Copied to clipboard!';
+                });
+            } else {
+                outputArea.select();
+                document.execCommand('copy');
+                statusMsg.textContent = 'Copied to clipboard!';
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

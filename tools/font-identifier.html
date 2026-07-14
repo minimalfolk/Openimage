@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindi Font Identifier - Detect Legacy Hindi Font Encoding</title>
+    <meta name="description" content="Free online Hindi font identifier tool. Paste text to detect whether it uses Krutidev, Shree Lipi, Chanakya, DevLys, Shusha, or Unicode encoding.">
+    <meta property="og:title" content="Hindi Font Identifier - Detect Legacy Hindi Font Encoding">
+    <meta property="og:description" content="Free online Hindi font identifier tool. Paste text to detect whether it uses Krutidev, Shree Lipi, Chanakya, DevLys, Shusha, or Unicode encoding.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://hindifontconverter.com/tools/font-identifier.html">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Hindi Font Identifier",
+        "description": "Free online Hindi font identifier tool. Paste text to detect whether it uses Krutidev, Shree Lipi, Chanakya, DevLys, Shusha, or Unicode encoding.",
+        "url": "https://hindifontconverter.com/tools/font-identifier.html",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Hindi Font Converter</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#tools">All Tools</a>
+                    <a href="font-identifier.html">Font Identifier</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Hindi Font Identifier</h1>
+            <p>Paste text to detect which Hindi font encoding it uses.</p>
+        </section>
+
+        <div class="converter-box">
+            <div class="textarea-wrap">
+                <label for="input-text">Paste Text to Identify</label>
+                <textarea id="input-text" placeholder="Paste your Hindi text here to identify which font encoding it uses..."></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button id="convert-btn" class="btn btn-primary">Identify Font</button>
+                
+                <button id="clear-btn" class="btn btn-secondary">Clear All</button>
+            </div>
+
+            <div class="textarea-wrap">
+                <label for="output-text">Detection Result</label>
+                <textarea id="output-text" readonly placeholder="Font detection results will appear here..."></textarea>
+            </div>
+
+            <div class="btn-row">
+                <button id="copy-btn" class="btn btn-success">Copy Result</button>
+            </div>
+            <p class="status-msg" id="status-msg">Ready.</p>
+        </div>
+
+        <section class="content-section">
+            <h2>How to Identify Hindi Font Encoding</h2>
+            <ol>
+                <li>Paste the text you want to identify in the input box.</li>
+                <li>Click <strong>Identify Font</strong> to detect the encoding.</li>
+                <li>The tool will show which legacy font the text is likely encoded in.</li>
+                <li>Use the appropriate converter tool to convert it to Unicode.</li>
+            </ol>
+            <h2>How Does Font Detection Work?</h2>
+            <p>This tool attempts to convert your text using each supported font's mapping and checks which conversion produces the most valid Hindi Unicode characters. The font that produces the highest ratio of valid Devanagari characters is identified as the most likely encoding.</p>
+            <p>Detection works best with longer text samples (at least one full sentence). Very short text or text with many numbers/punctuation may not be identified accurately.</p>
+            <h2>Supported Fonts for Detection</h2>
+            <ul>
+                <li>Krutidev 010 / DevLys 010</li>
+                <li>Shree Lipi (ShreeDev 0714)</li>
+                <li>Walkman Chanakya / AkrutiDev Chanakya</li>
+                <li>Shusha</li>
+                <li>XDVNG / DevLys variants</li>
+                <li>Unicode (Mangal) - already in standard format</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Hindi Font Converter. Free online Hindi font conversion tools.</p>
+            <p><a href="../index.html">Home</a> | <a href="../index.html#tools">All Tools</a> | <a href="font-identifier.html">Font Identifier</a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/converter-engine.js"></script>
+    <script src="../assets/js/unicode-to-krutidev.js"></script>
+    <script src="../assets/js/converter.js"></script>
+    <script>
+    (function() {
+        var inputArea = document.getElementById('input-text');
+        var outputArea = document.getElementById('output-text');
+        var convertBtn = document.getElementById('convert-btn');
+        var clearBtn = document.getElementById('clear-btn');
+        var copyBtn = document.getElementById('copy-btn');
+        var statusMsg = document.getElementById('status-msg');
+        
+        convertBtn.addEventListener('click', function() {
+            var text = inputArea.value;
+            if (!text.trim()) { statusMsg.textContent = 'Please paste some text first.'; return; }
+            statusMsg.textContent = 'Detecting...';
+            var result = HindiFontConverter.detectFont(text);
+            var output = 'Detected Font: ' + result.font + '\n';
+            output += 'Confidence: ' + result.confidence + '\n\n';
+            if (result.allResults) {
+                output += 'Detailed Analysis:\n';
+                for (var i = 0; i < result.allResults.length; i++) {
+                    var r = result.allResults[i];
+                    output += '  ' + r.font + ': ' + (r.ratio * 100).toFixed(1) + '% Hindi characters\n';
+                }
+            }
+            if (result.font === 'Unicode (Mangal/Devanagari)') {
+                output += '\nYour text is already in Unicode! No conversion needed.';
+            } else if (result.confidence !== 'low') {
+                output += '\nSuggestion: Use the ' + result.font + ' to Unicode converter.';
+            }
+            outputArea.value = output;
+            statusMsg.textContent = 'Detection complete.';
+        });
+
+        clearBtn.addEventListener('click', function() {
+            inputArea.value = '';
+            outputArea.value = '';
+            statusMsg.textContent = 'Cleared.';
+        });
+
+        copyBtn.addEventListener('click', function() {
+            if (!outputArea.value) { statusMsg.textContent = 'Nothing to copy.'; return; }
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(outputArea.value).then(function() {
+                    statusMsg.textContent = 'Copied to clipboard!';
+                });
+            } else {
+                outputArea.select();
+                document.execCommand('copy');
+                statusMsg.textContent = 'Copied to clipboard!';
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
